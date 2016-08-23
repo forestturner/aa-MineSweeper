@@ -21460,6 +21460,7 @@
 	    var startBoard = new MineSweeper.Board(9, 6);
 	    _this.state = { board: startBoard };
 	    _this.updateGame = _this.updateGame.bind(_this);
+	    _this.gameOver = _this.gameOver.bind(_this);
 	    return _this;
 	  }
 	
@@ -21474,12 +21475,29 @@
 	      this.setState({ board: this.state.board });
 	    }
 	  }, {
+	    key: 'gameOver',
+	    value: function gameOver() {
+	      var str = "";
+	      if (this.state.board.won()) {
+	        str = "YOU WON!";
+	      } else if (this.state.board.lost()) {
+	        str = "YOU LOST!";
+	      }
+	      return _react2.default.createElement(
+	        'h1',
+	        null,
+	        str
+	      );
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var result = this.gameOver();
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_board2.default, { board: this.state.board, updateGame: this.updateGame })
+	        _react2.default.createElement(_board2.default, { board: this.state.board, updateGame: this.updateGame }),
+	        result
 	      );
 	    }
 	  }]);
